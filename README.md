@@ -4,7 +4,7 @@
 
 This challenge required me to build a complex system which stretched my skills in Ruby, TDD and object-oriented design. Transport for London, the body responsible for tube transport, has a plan: they want to build a system for TFL's Oystercard payment network. [user stories.](user_stories.md)
 
-This project focuses on Pair Programming and TDD.
+This project focuses on Pair Programming, TDD, and object-oriented design.
 
 *Thank you pair programming partners!*
 - [*Ionut*](https://github.com/Mintar89)
