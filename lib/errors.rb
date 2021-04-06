@@ -1,5 +1,3 @@
-require 'oystercard'
-
 class MaximumLimitError < StandardError
   attr_reader :msg
 

@@ -1,4 +1,4 @@
-require 'errors'
+require_relative 'errors'
 
 class Oystercard
   attr_reader :balance
@@ -16,6 +16,12 @@ class Oystercard
   def deduct(value)
     raise MinimumLimitError if balance - value < 0
     @balance -= value
+  end
+
+  def touch_in
+  end
+
+  def touch_out
   end
 
 end
