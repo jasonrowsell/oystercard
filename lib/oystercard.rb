@@ -9,11 +9,12 @@ class Oystercard
   end
 
   def top_up(value)
-    raise ValueError if balance + value > MAXIMUM_LIMIT
+    raise MaximumLimitError if balance + value > MAXIMUM_LIMIT
     @balance += value
   end
 
   def deduct(value)
+    raise MinimumLimitError if balance - value < 0
     @balance -= value
   end
 

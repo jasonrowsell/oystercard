@@ -7,6 +7,7 @@ describe Oystercard do
 
   it { is_expected.to respond_to :balance }
   it { is_expected.to respond_to(:top_up).with(1).argument }
+  it { is_expected.to respond_to(:deduct).with(1).argument }
 
   describe '#balance' do
     it 'returns a default balance of zero' do
@@ -15,23 +16,33 @@ describe Oystercard do
   end
 
   describe '#top_up' do
-    it 'increases the balance by top_up amount' do
-      expect{ subject.top_up(5) }.to change { subject.balance }.by 5 
+    context 'topping-up with none, or sufficient funds' do
+      it 'increases the balance by top_up amount' do
+        expect{ subject.top_up(5) }.to change { subject.balance }.by 5 
+      end
     end
 
-    it 'raises an error when overriding maximum balance' do
-      max_value = Oystercard::MAXIMUM_LIMIT
-      subject.top_up(max_value)
-      expect{ subject.top_up 1 }.to raise_error ValueError
+    context 'topping-up with maximum funds' do
+      it 'raises an error' do
+        max_value = Oystercard::MAXIMUM_LIMIT
+        subject.top_up(max_value)
+        expect{ subject.top_up 1 }.to raise_error MaximumLimitError
+      end
     end
   end
-  
-  it { is_expected.to respond_to(:deduct).with(1).argument }
 
   describe '#deduct' do
-    it 'reduces de balance' do
-      expect{ subject.deduct 5 }.to change{ subject.balance }.by -5
+    context 'deducting balance with sufficient funds' do
+      it 'reduces the balance' do
+        subject.top_up 10
+        expect{ subject.deduct 5 }.to change{ subject.balance }.by -5
+      end
+    end
+
+    context 'deducting balance with no funds' do
+      it 'raises an error' do
+        expect{ subject.deduct 5 }.to raise_error MinimumLimitError
+      end
     end
   end
-    
 end
