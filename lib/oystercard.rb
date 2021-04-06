@@ -8,14 +8,14 @@ class Oystercard
     @balance = 0
   end
 
-  def top_up(value)
-    raise MaximumLimitError if balance + value > MAXIMUM_LIMIT
-    @balance += value
+  def top_up(amount)
+    raise MaximumLimitError if limit_exceeded?(amount)
+    @balance += amount
   end
 
-  def deduct(value)
-    raise MinimumLimitError if balance - value < 0
-    @balance -= value
+  def deduct(amount)
+    raise MinimumLimitError if no_funds?(amount)
+    @balance -= amount
   end
 
   def touch_in
@@ -24,4 +24,15 @@ class Oystercard
   def touch_out
   end
 
+  def in_journey?
+  end
+
+  private 
+  def limit_exceeded?(amount)
+    balance + amount > MAXIMUM_LIMIT
+  end
+
+  def no_funds?(amount)
+    balance - amount < 0
+  end
 end

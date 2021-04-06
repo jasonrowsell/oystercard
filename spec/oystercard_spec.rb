@@ -11,7 +11,7 @@ describe Oystercard do
   it { is_expected.to respond_to :touch_in }
   it { is_expected.to respond_to :touch_out }
 
-  describe '#balance' do
+  context 'initializing class' do
     it 'returns a default balance of zero' do
       expect(subject.balance).to eq 0
     end
@@ -47,4 +47,5 @@ describe Oystercard do
       end
     end
   end
+
 end
