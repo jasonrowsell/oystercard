@@ -1,6 +1,7 @@
 require 'oystercard'
 
 describe Oystercard do
+  let(:station) { double(:station) }
   it 'allows the user to create an instance of Oystercard' do
     is_expected.to be_instance_of Oystercard
   end
@@ -8,7 +9,7 @@ describe Oystercard do
   it { is_expected.to respond_to :balance }
   it { is_expected.to respond_to(:top_up).with(1).argument }
   it { is_expected.to respond_to(:deduct).with(1).argument }
-  it { is_expected.to respond_to :touch_in }
+  it { is_expected.to respond_to(:touch_in).with(1).argument }
   it { is_expected.to respond_to :touch_out }
 
   context 'initializing class' do
@@ -56,13 +57,13 @@ describe Oystercard do
     context 'sufficient balance' do
       before { subject.top_up(10) }
         it 'touches in' do
-          expect(subject.touch_in).to eq true
+          expect(subject.touch_in(station)).to eq true
         end
     end
 
     context 'insufficient balance' do
       it 'will not touch in if below minimum balance' do
-        expect{ subject.touch_in }.to raise_error MinimumBalanceError
+        expect{ subject.touch_in(station) }.to raise_error MinimumBalanceError
       end
     end
   end
@@ -71,7 +72,7 @@ describe Oystercard do
     context 'having completed a journey' do
       before {
         subject.top_up(10)
-        subject.touch_in
+        subject.touch_in(station)
         subject.touch_out
       }
       it 'should removes journey status after touching out' do
