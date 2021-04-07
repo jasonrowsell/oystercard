@@ -1,15 +1,16 @@
 require_relative 'errors'
 
 class Oystercard
-  attr_reader :balance, :journey, :entry_station
-  alias :in_journey? :journey
+  attr_reader :balance, :entry_station, :exit_station, :journeys
+
   BALANCE_LIMIT = 90
   MINIMUM_FARE = 1
   
   def initialize
     @balance = 0
-    @journey = false
     @entry_station = nil
+    @exit_station = nil
+    @journeys = []
   end
 
   def top_up(amount)
@@ -20,12 +21,21 @@ class Oystercard
   def touch_in(station)
     raise MinimumBalanceError if min_balance?
     @entry_station = station
-    @journey = true
   end
 
-  def touch_out
+  def touch_out(station)
     deduct(MINIMUM_FARE)
-    @journey = false
+    @exit_station = station
+    log_journey
+    @entry_station = nil
+  end
+
+  def log_journey
+    journeys << {entry_station: entry_station, exit_station: exit_station}
+  end
+
+  def in_journey?
+    !!entry_station
   end
 
   private 
