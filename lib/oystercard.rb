@@ -17,11 +17,6 @@ class Oystercard
     @balance += amount
   end
 
-  def deduct(amount)
-    raise MinimumBalanceError if min_balance?
-    @balance -= amount
-  end
-
   def touch_in(station)
     raise MinimumBalanceError if min_balance?
     @entry_station = station
@@ -40,6 +35,11 @@ class Oystercard
 
   def min_balance?
     balance < MINIMUM_FARE
+  end
+
+  def deduct(amount)
+    raise MinimumBalanceError if min_balance?
+    @balance -= amount
   end
 
 end
