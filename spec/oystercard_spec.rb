@@ -15,6 +15,10 @@ describe Oystercard do
     it 'returns a default balance of zero' do
       expect(subject.balance).to eq 0
     end
+
+    it 'is formally not in a journey' do
+      expect(subject).not_to be_in_journey
+    end
   end
 
   describe '#top_up' do
@@ -26,9 +30,9 @@ describe Oystercard do
 
     context 'topping-up with maximum funds' do
       it 'raises an error' do
-        max_value = Oystercard::MAXIMUM_LIMIT
+        max_value = Oystercard::BALANCE_LIMIT
         subject.top_up(max_value)
-        expect{ subject.top_up 1 }.to raise_error MaximumLimitError
+        expect{ subject.top_up 1 }.to raise_error MaximumBalanceError
       end
     end
   end
@@ -43,9 +47,28 @@ describe Oystercard do
 
     context 'deducting balance with no funds' do
       it 'raises an error' do
-        expect{ subject.deduct 5 }.to raise_error MinimumLimitError
+        expect{ subject.deduct 5 }.to raise_error MinimumBalanceError
       end
     end
   end
 
+  describe '#touch_in' do
+    context 'sufficient balance' do
+      it 'touches in' do
+        expect(subject.touch_in).to eq true
+      end
+    end
+
+      it 'should removes journey status after touching out' do
+        subject.touch_in
+        subject.touch_out
+        expect(subject.in_journey?).to eq false
+      end
+
+    context 'insufficient balance' do
+      xit 'will not touch in if below minimum balance' do
+        expect{ subject.touch_in }.to raise_error MinimumBalanceError
+      end
+    end
+  end
 end

@@ -1,4 +1,4 @@
-class MaximumLimitError < StandardError
+class MaximumBalanceError < StandardError
   attr_reader :msg
 
   def initialize(msg = "Maximum limit of #{ :MAXIMUM_LIMIT } reached")
@@ -6,10 +6,10 @@ class MaximumLimitError < StandardError
   end
 end
 
-class MinimumLimitError < StandardError
+class MinimumBalanceError < StandardError
   attr_reader :msg
 
-  def initialize(msg = "You have no funds, please top-up your oystercard")
+  def initialize(msg = "You do not have enough funds, please top-up your oystercard")
     super(msg)
   end
 end

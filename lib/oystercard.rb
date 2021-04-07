@@ -1,38 +1,40 @@
 require_relative 'errors'
 
 class Oystercard
-  attr_reader :balance
-  MAXIMUM_LIMIT = 90
+  attr_reader :balance, :journey
+  alias :in_journey? :journey
+  BALANCE_LIMIT = 90
   
   def initialize
     @balance = 0
+    @journey = false
   end
 
   def top_up(amount)
-    raise MaximumLimitError if limit_exceeded?(amount)
+    raise MaximumBalanceError if max_balance?(amount)
     @balance += amount
   end
 
   def deduct(amount)
-    raise MinimumLimitError if no_funds?(amount)
+    raise MinimumBalanceError if min_balance?(amount)
     @balance -= amount
   end
 
   def touch_in
+    @journey = true
   end
 
   def touch_out
-  end
-
-  def in_journey?
+    @journey = false
   end
 
   private 
-  def limit_exceeded?(amount)
-    balance + amount > MAXIMUM_LIMIT
+  def max_balance?(amount)
+    balance + amount > BALANCE_LIMIT
   end
 
-  def no_funds?(amount)
+  def min_balance?(amount)
     balance - amount < 0
   end
+
 end
