@@ -4,6 +4,7 @@ class Oystercard
   attr_reader :balance, :journey
   alias :in_journey? :journey
   BALANCE_LIMIT = 90
+  MINIMUM_FARE = 1
   
   def initialize
     @balance = 0
@@ -16,11 +17,12 @@ class Oystercard
   end
 
   def deduct(amount)
-    raise MinimumBalanceError if min_balance?(amount)
+    raise MinimumBalanceError if min_balance?
     @balance -= amount
   end
 
   def touch_in
+    raise MinimumBalanceError if min_balance?
     @journey = true
   end
 
@@ -33,8 +35,8 @@ class Oystercard
     balance + amount > BALANCE_LIMIT
   end
 
-  def min_balance?(amount)
-    balance - amount < 0
+  def min_balance?
+    balance < MINIMUM_FARE
   end
 
 end

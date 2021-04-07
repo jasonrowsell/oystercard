@@ -54,19 +54,21 @@ describe Oystercard do
 
   describe '#touch_in' do
     context 'sufficient balance' do
-      it 'touches in' do
-        expect(subject.touch_in).to eq true
+      before { subject.top_up(10) }
+        it 'touches in' do
+          expect(subject.touch_in).to eq true
+        end
       end
-    end
 
-      it 'should removes journey status after touching out' do
-        subject.touch_in
-        subject.touch_out
-        expect(subject.in_journey?).to eq false
-      end
+        it 'should removes journey status after touching out' do
+          subject.top_up(10)
+          subject.touch_in
+          subject.touch_out
+          expect(subject.in_journey?).to eq false
+        end
 
     context 'insufficient balance' do
-      xit 'will not touch in if below minimum balance' do
+      it 'will not touch in if below minimum balance' do
         expect{ subject.touch_in }.to raise_error MinimumBalanceError
       end
     end
