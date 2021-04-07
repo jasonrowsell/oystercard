@@ -58,17 +58,28 @@ describe Oystercard do
         it 'touches in' do
           expect(subject.touch_in).to eq true
         end
-
-        it 'should removes journey status after touching out' do
-          subject.touch_in
-          subject.touch_out
-          expect(subject.in_journey?).to eq false
-        end
-      end
+    end
 
     context 'insufficient balance' do
       it 'will not touch in if below minimum balance' do
         expect{ subject.touch_in }.to raise_error MinimumBalanceError
+      end
+    end
+  end
+
+  describe '#touch_out' do
+    context 'having completed a journey' do
+      before {
+        subject.top_up(10)
+        subject.touch_in
+        subject.touch_out
+      }
+      it 'should removes journey status after touching out' do
+        expect(subject.in_journey?).to eq false
+      end
+
+      it 'deducts minimum fare from balance' do
+        expect(subject.balance).to be(10 - described_class::MINIMUM_FARE)
       end
     end
   end
