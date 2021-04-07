@@ -1,10 +1,11 @@
 require 'oystercard'
+require 'journey'
 
 describe Oystercard do
   let(:entry_station) { double(:entry_station) }
   let(:exit_station) { double(:exit_station) }
   let(:journey) { {entry_station: entry_station, exit_station: exit_station} }
-  
+
   it 'allows the user to create an instance of Oystercard' do
     is_expected.to be_instance_of Oystercard
   end

@@ -1,4 +1,5 @@
 require_relative 'errors'
+require_relative 'journey'
 
 class Oystercard
   attr_reader :balance, :entry_station, :exit_station, :journeys
@@ -30,12 +31,12 @@ class Oystercard
     @entry_station = nil
   end
 
-  def log_journey
-    journeys << {entry_station: entry_station, exit_station: exit_station}
-  end
-
   def in_journey?
     !!entry_station
+  end
+
+  def log_journey
+    journeys << {entry_station: entry_station, exit_station: exit_station}
   end
 
   private 
