@@ -33,11 +33,12 @@ describe Oystercard do
     end
 
     context 'topping-up with maximum funds' do
-      it 'raises an error' do
+      before {
         max_value = Oystercard::BALANCE_LIMIT
-        subject.top_up(max_value)
-        expect{ subject.top_up 1 }.to raise_error MaximumBalanceError
-      end
+        subject.top_up(max_value) }
+        it 'raises an error' do
+          expect{ subject.top_up 1 }.to raise_error MaximumBalanceError
+        end
     end
   end
 
