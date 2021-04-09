@@ -4,8 +4,10 @@ require 'station'
 describe Journey do
   let(:entry_station) { double :entry_station }
   let(:exit_station) { double :exit_station }
-  subject { described_class.new(
-    entry_station: entry_station, exit_station: exit_station) 
+  subject { 
+    described_class.new(
+    entry_station: entry_station, 
+    exit_station: exit_station) 
   }
 
   context 'initializing with entry and exit' do

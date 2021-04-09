@@ -1,5 +1,3 @@
-require_relative 'oystercard'
-
 class Journey
   attr_reader :entry_station, :exit_station
   MINIMUM_FARE = 1
