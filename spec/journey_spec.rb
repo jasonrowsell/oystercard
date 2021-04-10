@@ -27,7 +27,7 @@ describe Journey do
   describe '#fare' do
     context 'when journey is complete' do
       it 'charges the minimum fare' do
-        expect(subject.fare).to eq Journey::MINIMUM_FARE
+        expect(subject.fare).to eq Oystercard::MINIMUM_FARE
       end
     end
 

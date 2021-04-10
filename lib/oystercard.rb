@@ -2,9 +2,10 @@ require_relative 'errors'
 require_relative 'journey'
 
 class Oystercard
-  attr_reader :balance, :journeys, :in_journey, :journey_class
+  attr_reader :balance, :journeys, :journey_class
+  attr_accessor :in_journey
 
-  def initialize(journey_class = Journey.new)
+  def initialize(journey_class = Journey)
     @balance = 0
     @journeys = []
     @journey_class = journey_class
@@ -21,12 +22,14 @@ class Oystercard
 
   def touch_in(station)
     raise MinimumBalanceError if min_balance?
+    deduct(Journey::PENALTY_FARE) if in_journey?
     start_journey(:entry_station, station)
     @in_journey = true
   end
 
   def touch_out(station)
-    deduct(MINIMUM_FARE)
+    in_journey? ? deduct(MINIMUM_FARE) : deduct(Journey::PENALTY_FARE)
+    end_journey(:exit_station, station)
     @in_journey = false
   end
 
@@ -53,5 +56,12 @@ class Oystercard
     journeys << journey_class.new(position => station)
   end
 
+  def end_journey(position, station)
+    if @journeys.empty? || @journeys.last.complete?
+      journeys << journey_class.new(position => station)
+    else
+      journeys.last.exit_station = station
+    end
+  end
 
 end

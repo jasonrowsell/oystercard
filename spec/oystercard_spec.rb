@@ -11,7 +11,7 @@ describe Oystercard do
   let(:journey) { instance_double(
     Journey, :journey,
     entry_station: entry_station,
-    exit_station: nil)
+    exit_station: exit_station)
   }
 
   it { is_expected.to respond_to :balance }
@@ -67,6 +67,19 @@ describe Oystercard do
         }.to raise_error MinimumBalanceError
       end
     end
+
+    context 'touching in twice without touching out' do
+      before {
+        subject.top_up(10)
+        subject.touch_in(entry_station)
+      }
+      it 'deducts penalty fare from balance' do
+        expect{
+          subject.touch_in(entry_station)
+        }.to change { subject.balance }.by(-Journey::PENALTY_FARE)
+      end
+    end
+
   end
 
   describe '#touch_out' do
@@ -77,10 +90,20 @@ describe Oystercard do
       }
       it 'deducts minimum fare from balance' do
         expect{ 
+          allow(journey).to receive(:complete?).and_return(true)
           subject.touch_out(exit_station) 
         }.to change { subject.balance }.by(-described_class::MINIMUM_FARE)
       end
     end
+
+    context 'touching out without touching in first' do
+      before { subject.top_up(10) }
+      it 'deducts penalty fare from balance' do
+        expect { subject.touch_out(exit_station)
+      }.to change { subject.balance }.by(-Journey::PENALTY_FARE)
+    end
+  end
+
   end
 
   describe '#journeys' do
@@ -94,6 +117,7 @@ describe Oystercard do
       before {
         subject.top_up(5)
         subject.touch_in(entry_station)
+        allow(journey).to receive(:complete?).and_return(true)
         subject.touch_out(exit_station)
       }
       it 'stores the journey log' do

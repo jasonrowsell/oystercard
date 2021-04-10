@@ -1,7 +1,10 @@
+require_relative 'oystercard'
+
 class Journey
-  attr_reader :entry_station, :exit_station
-  MINIMUM_FARE = 1
   PENALTY_FARE = 6
+
+  attr_reader :entry_station
+  attr_accessor :exit_station
 
   def initialize(args = {})
     @entry_station = args[:entry_station]
@@ -13,7 +16,11 @@ class Journey
   end
 
   def fare
-    complete? ? MINIMUM_FARE : PENALTY_FARE
+    complete? ? Oystercard::MINIMUM_FARE : PENALTY_FARE
+  end
+
+  def self.start_journey(station)
+    self.new(entry_station: station)
   end
 
 end
