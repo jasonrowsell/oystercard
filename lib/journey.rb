@@ -19,8 +19,4 @@ class Journey
     complete? ? Oystercard::MINIMUM_FARE : PENALTY_FARE
   end
 
-  def self.start_journey(station)
-    self.new(entry_station: station)
-  end
-
 end
