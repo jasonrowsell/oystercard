@@ -8,6 +8,9 @@ This project focuses on Pair Programming, TDD, and object-oriented design.
 
 *Thank you pair programming partners!*
 - [*Ionut*](https://github.com/Mintar89)
+- [*Abdur*]
+- [*Tiago*]
+- [*Kane*]
 
 
 ## Technical skills
