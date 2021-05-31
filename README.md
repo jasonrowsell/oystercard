@@ -2,19 +2,11 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/bfc95e944d4598212797/maintainability)](https://codeclimate.com/github/jasonrowsell/boris-bikes/maintainability) [![Build Status](https://travis-ci.com/jasonrowsell/boris-bikes.svg?branch=main)](https://travis-ci.com/jasonrowsell/boris-bikes) [![Coverage Status](https://coveralls.io/repos/github/jasonrowsell/boris-bikes/badge.svg?branch=main)](https://coveralls.io/github/jasonrowsell/boris-bikes?branch=main)
 
+[Brief](#brief) | [User Stories](#user-stories) | [Technical Skills](#technical-skills) | [Installation and usage](#installation-and-usage)
+
 This challenge required me to build a complex system which stretched my skills in Ruby, TDD and object-oriented design. This project was created to practice TDD using RSpec. My OOP/D focused on principles such as including encapsulation, high cohesion and low coupling, SRP and dependency injection. 
 
 This project focuses on Pair Programming, TDD, and object-oriented design.
-
-[Spec](#spec)
-  - [Brief](#brief)
-  - [User Stories](#user-stories)
-
-[Technical Skills](#technical-skills)
-
-[Installation and usage](#installation-and-usage)
-  - [Dependencies](#dependencies)
-  - [Running tests](#running-tests)
 
 ## Spec
 
