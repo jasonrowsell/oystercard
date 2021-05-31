@@ -14,7 +14,7 @@ This project focuses on Pair Programming, TDD, and object-oriented design.
 
 ### Brief
 
-Transport for London, the body responsible for tube transport, has a plan: they want to build a system for TFL's Oystercard payment network. [user stories.](user_stories.md)
+Transport for London, the body responsible for tube transport, has a plan: they want to build a system for TFL's Oystercard payment network.
 
 ### User Stories
 
