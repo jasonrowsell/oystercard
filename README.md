@@ -10,6 +10,12 @@ This project focuses on Pair Programming, TDD, and object-oriented design.
   - [Brief](#brief)
   - [User Stories](#user-stories)
 
+[Technical Skills](#technical-skills)
+
+[Installation and usage](#installation-and-usage)
+  - [Dependencies](#dependencies)
+  - [Running tests](#running-tests)
+
 ## Spec
 
 ### Brief
@@ -104,7 +110,7 @@ I need to have the correct fare calculated
 
 This program requires latest [Ruby](https://www.ruby-lang.org/en/downloads/) version or more recent.
 
-## Dependencies
+### Dependencies
 
 - `rspec` - testing
 - `coveralls` - test coverage
